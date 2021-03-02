@@ -48,6 +48,12 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'velocity_tester.App'
+    }
+}
+
 task fatJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'velocity_tester.App'
