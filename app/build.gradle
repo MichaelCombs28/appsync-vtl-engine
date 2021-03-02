@@ -47,3 +47,12 @@ tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'velocity_tester.App'
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy = 'EXCLUDE'
+    with jar
+}
