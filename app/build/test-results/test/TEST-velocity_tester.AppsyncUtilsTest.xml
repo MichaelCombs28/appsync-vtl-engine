@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="velocity_tester.AppsyncUtilsTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2021-03-01T22:59:30" hostname="michcomb-UX550VE" time="0.112">
+  <properties/>
+  <testcase name="testSortList()" classname="velocity_tester.AppsyncUtilsTest" time="0.09"/>
+  <testcase name="testNowEpochSeconds()" classname="velocity_tester.AppsyncUtilsTest" time="0.002"/>
+  <testcase name="testBase64Decode()" classname="velocity_tester.AppsyncUtilsTest" time="0.001"/>
+  <testcase name="testUrlDecode()" classname="velocity_tester.AppsyncUtilsTest" time="0.001"/>
+  <testcase name="testBase64Encode()" classname="velocity_tester.AppsyncUtilsTest" time="0.001"/>
+  <testcase name="testUrlEncode()" classname="velocity_tester.AppsyncUtilsTest" time="0.001"/>
+  <testcase name="testIsNullOrBlank()" classname="velocity_tester.AppsyncUtilsTest" time="0.001"/>
+  <testcase name="testAutoId()" classname="velocity_tester.AppsyncUtilsTest" time="0.0"/>
+  <testcase name="testToJson()" classname="velocity_tester.AppsyncUtilsTest" time="0.011"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

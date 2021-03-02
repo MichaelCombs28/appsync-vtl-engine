@@ -1,4 +1,20 @@
+velocity_tester/TemplateRunResponse.java
+ velocity_tester.TemplateRunResponse
+velocity_tester/AppsyncReturnInterrupt.java
+ velocity_tester.AppsyncReturnInterrupt
+velocity_tester/AppsyncException.java
+ velocity_tester.AppsyncException
+velocity_tester/AppsyncReturnDirective.java
+ velocity_tester.AppsyncReturnDirective
 velocity_tester/TemplateRunDTO.java
  velocity_tester.TemplateRunDTO
 velocity_tester/App.java
  velocity_tester.App
+velocity_tester/AppsyncUtils.java
+ velocity_tester.AppsyncUtils
+ velocity_tester.AppsyncUtils$DynamoDBUtils
+ velocity_tester.AppsyncUtils$ListUtils
+ velocity_tester.AppsyncUtils$MapUtils
+ velocity_tester.AppsyncUtils$MathUtils
+ velocity_tester.AppsyncUtils$StringUtils
+ velocity_tester.AppsyncUtils$TimeUtils

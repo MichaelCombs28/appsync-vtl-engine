@@ -9,9 +9,14 @@ public class TemplateRunDTO {
     private String templateName;
     private String template;
     private Map<String, Object> context;
+    private Map<String, Object> utilMocks;
 
     public String getTemplate() {
         return template;
+    }
+
+    public Map<String, Object> getUtilMocks() {
+        return utilMocks;
     }
 
     public String getTemplateName() {

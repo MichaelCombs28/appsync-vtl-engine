@@ -9,6 +9,7 @@
     {
       "template": "some template",
       "templateName": "template-name",
+      "utilMocks": {},
       "context": {
         "info": {
           "fieldName": "fieldName",
@@ -85,10 +86,7 @@
           }
         }
       ],
-      "required": [
-        "info",
-        "identity"
-      ],
+      "required": ["info", "identity"],
       "properties": {
         "info": {
           "$id": "#/properties/context/properties/info",
@@ -271,7 +269,10 @@
           }
         }
       },
-      "additionalProperties": true
+      "additionalProperties": false
+    },
+    "utilMocks": {
+      "$id": "#/properties/utilMocks"
     }
   },
   "additionalProperties": true

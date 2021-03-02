@@ -5,7 +5,9 @@ package velocity_tester;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,6 +18,7 @@ import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.exception.MethodInvocationException;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
@@ -34,6 +37,8 @@ public class App {
 
         Namespace ns = parser.parseArgs(args);
         Integer port = ns.getInt("port");
+        Properties props = new Properties();
+        props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("velocity.properties"));
 
         Spark.port(port);
         System.out.println("====================================");
@@ -54,8 +59,9 @@ public class App {
 
                 // Start your engines
                 VelocityEngine engine = new VelocityEngine();
+
+                engine.setProperties(props);
                 engine.init();
-                VelocityContext v = new VelocityContext();
                 // TODO build context object (prev result)
 
                 Map<String, Object> context = dto.getContext();
@@ -63,14 +69,44 @@ public class App {
                     context.put("args", context.get("arguments"));
                 }
 
+                Map<String, Object> stash;
+                if (context.containsKey("stash")) {
+                    stash = (Map<String, Object>) context.get("stash");
+                } else {
+                    stash = new HashMap<>();
+                }
+
+                context.put("stash", stash);
+                AppsyncUtils util = new AppsyncUtils((Map<String, Object>) context.get("utilMocks"));
+
+                VelocityContext v = new VelocityContext();
                 v.put("ctx", context);
                 v.put("context", context);
-
+                v.put("util", util);
                 StringWriter writer = new StringWriter();
                 engine.evaluate(v, writer, dto.getTemplateName(), new StringReader(dto.getTemplate()));
-                return writer.toString();
-            } catch (Exception e) {
+                TemplateRunResponse response = new TemplateRunResponse(writer.toString(), stash, util.getErrors(),
+                        null);
+                return mapper.writeValueAsString(response);
+            } catch (AppsyncReturnInterrupt e) {
+                try {
+                    TemplateRunResponse response = new TemplateRunResponse("", null, null, e.getReturnValue());
+                    return mapper.writeValueAsString(response);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            } catch (MethodInvocationException e) {
+                if (e.getMethodName().equals("unauthorized")) {
+                    return "Unauthorized";
+                } else if (e.getMethodName().equals("error") || e.getMethodName().equals("validate")) {
+                    return mapper.writeValueAsString(e.getCause());
+                } else {
+                    System.err.println(e.getMethodName());
+                }
                 System.err.println(e);
+            } catch (Exception e) {
+                System.err.println("There was an uncaught error.");
+                e.printStackTrace();
             }
             return "Invalid request.";
         });
