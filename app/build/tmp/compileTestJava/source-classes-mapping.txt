@@ -1,4 +1,0 @@
-velocity_tester/AppTest.java
- velocity_tester.AppTest
-velocity_tester/AppsyncUtilsTest.java
- velocity_tester.AppsyncUtilsTest
